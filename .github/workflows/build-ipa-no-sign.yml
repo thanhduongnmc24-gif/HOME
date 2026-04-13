@@ -99,6 +99,6 @@ jobs:
           tag_name: ${{ steps.tag.outputs.release_tag }}
           name: Bản Build ${{ steps.tag.outputs.release_tag }}
           body: "Bản build không chứng chỉ (Unsigned). Dùng ESign/Scarlet để ký nhé!"
-          files: ipa/build/GhiChu.ipa
+          files: ipa/build/HA.ipa
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
