@@ -16,14 +16,20 @@ export default function SettingsScreen() {
     loadSettings();
   }, []);
 
-  const saveSettings = async () => {
+ const saveSettings = async () => {
     if (!url) {
       Alert.alert('Lỗi', 'Anh hai quên nhập Link rồi kìa!');
       return;
     }
     try {
-      // Bỏ dấu slash '/' ở cuối URL nếu anh hai lỡ gõ thừa
-      const cleanUrl = url.replace(/\/$/, '');
+      // Bỏ khoảng trắng dư thừa và dấu '/' ở cuối URL
+      let cleanUrl = url.trim().replace(/\/$/, '');
+      
+      // [Suy luận] Nếu link không bắt đầu bằng http hoặc https, Tèo tự động chèn http:// vào giúp anh hai
+      if (!cleanUrl.startsWith('http://') && !cleanUrl.startsWith('https://')) {
+        cleanUrl = 'http://' + cleanUrl;
+      }
+
       await AsyncStorage.setItem('ha_url', cleanUrl);
       await AsyncStorage.setItem('ha_token', token);
       Alert.alert('Ngon lành!', 'Tèo đã lưu lại cấu hình cho anh hai rồi đó.');
